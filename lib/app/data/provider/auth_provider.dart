@@ -21,9 +21,9 @@ class AuthProvider extends GetConnect {
 
   Future<RegisterResponseModel?> fetchRegister(
       RegisterRequestModel model) async {
-    try {
-      final response = await post(Constant.registerUrl, model.toJson());
+    final response = await post(Constant.registerUrl, model.toJson());
 
+    try {
       if (response.statusCode == HttpStatus.ok) {
         return RegisterResponseModel.fromJson(response.body);
       }
