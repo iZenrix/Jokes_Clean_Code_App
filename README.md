@@ -1,16 +1,5 @@
-# jokes_app
+Jokes App with Clean Code and GetX Pattern.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Special thanks for people who make this free API:
+Official Joke API: https://github.com/15Dkatz/official_joke_api/tree/master
+Auth API: https://reqres.in/
