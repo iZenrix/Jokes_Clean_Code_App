@@ -5,18 +5,22 @@ import 'package:jokes_app/app/modules/auth/views/components/header.dart';
 import 'package:jokes_app/app/modules/joke/controllers/joke_controller.dart';
 
 class JokeView extends GetView<JokeController> {
-  final String jokeType;
+  final String? jokeType;
 
-  JokeView({super.key, required this.jokeType});
+  JokeView({super.key, this.jokeType});
 
   @override
   final JokeController controller = Get.put(JokeController(), permanent: true);
   @override
   Widget build(BuildContext context) {
-    controller.getOneJokes(jokeType);
+    controller.getOneJokes(jokeType!);
     return Scaffold(
       appBar: AppBar(
-          title: Header(text: 'jokes type: $jokeType'.capitalizeFirst!, color: Colors.black)),
+        title: Header(
+          text: 'jokes type: $jokeType'.capitalizeFirst!,
+          color: Colors.black,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
         child: Column(
@@ -72,11 +76,14 @@ class JokeView extends GetView<JokeController> {
                 style: ElevatedButton.styleFrom(
                     backgroundColor: CustomColor.primary),
                 onPressed: () {
-                  controller.getTenJokes(jokeType);
+                  controller.getTenJokes(jokeType!);
                 },
                 child: const Center(
-                    child: Text('Generate 10 Jokes',
-                        style: TextStyle(color: Colors.white))),
+                  child: Text(
+                    'Generate 10 Jokes',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
               ),
             ),
           ],

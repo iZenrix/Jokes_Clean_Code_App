@@ -20,6 +20,19 @@ class FavoritesPage extends GetView<JokeController> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Obx(
           () {
+            if (controller.favoriteJokes.isEmpty) {
+              return Center(
+                child: Text(
+                  'No favorite jokes yet',
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                    color: CustomColor.primary,
+                  ),
+                ),
+              );
+            }
+
             var groupedJokes = groupBy(controller.favoriteJokes, (joke) => joke.type);
             return ListView.builder(
               itemCount: groupedJokes.keys.length,
