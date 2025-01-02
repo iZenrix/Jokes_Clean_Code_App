@@ -5,6 +5,8 @@ import 'package:jokes_app/app/data/models/login/login_request_model.dart';
 import 'package:jokes_app/app/modules/auth/views/onboard.dart';
 
 class LoginController extends GetxController with AuthMixin {
+  RxBool obscureText = true.obs;
+
   Future<void> loginUser(String email, String password) async {
     final response = await authProvider
         .fetchLogin(LoginRequestModel(email: email, password: password));
