@@ -5,7 +5,8 @@ import 'package:jokes_app/app/modules/auth/controllers/login_controller.dart';
 import 'package:jokes_app/app/modules/auth/views/components/footer.dart';
 import 'package:jokes_app/app/modules/auth/views/components/header.dart';
 import 'package:jokes_app/app/modules/auth/views/register_view.dart';
-import 'package:jokes_app/app/modules/auth/views/components/background.dart' as bg;
+import 'package:jokes_app/app/modules/auth/views/components/background.dart'
+    as bg;
 
 class LoginView extends GetView<LoginController> {
   LoginView({super.key});
@@ -28,7 +29,8 @@ class LoginView extends GetView<LoginController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25, vertical: 30),
                     child: Form(
                       key: loginFormKey,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -51,20 +53,37 @@ class LoginView extends GetView<LoginController> {
                             textInputAction: TextInputAction.next,
                           ),
                           const SizedBox(height: 20),
-                          TextFormField(
-                            style: const TextStyle(color: Colors.white),
-                            controller: controller.passwordController,
-                            decoration: const InputDecoration(
-                              labelText: 'password',
-                              hintText: 'password',
+                          Obx(
+                            () => TextFormField(
+                              style: const TextStyle(color: Colors.white),
+                              controller: controller.passwordController,
+                              decoration: InputDecoration(
+                                labelText: 'password',
+                                hintText: 'password',
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    controller.obscureText.value
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Theme.of(context).primaryColorDark,
+                                  ),
+                                  onPressed: () {
+                                    controller.obscureText.value =
+                                        !controller.obscureText.value;
+                                    controller.update();
+                                  },
+                                ),
+                              ),
+                              textInputAction: TextInputAction.next,
+                              obscureText: controller.obscureText.value,
+                              enableSuggestions: false,
+                              autocorrect: false,
                             ),
-                            textInputAction: TextInputAction.next,
                           ),
                           const SizedBox(height: 50),
                           ElevatedButton(
                             onPressed: () async {
-                              if (loginFormKey.currentState
-                                      ?.validate() ??
+                              if (loginFormKey.currentState?.validate() ??
                                   false) {
                                 await controller.loginUser(
                                   controller.emailController.text,
@@ -88,7 +107,7 @@ class LoginView extends GetView<LoginController> {
                           Footer(
                             text: 'Dont Have an Account?',
                             textButton: 'Register',
-                            onPressed: (){
+                            onPressed: () {
                               Get.to(RegisterView());
                             },
                           ),

@@ -5,6 +5,9 @@ import 'package:jokes_app/app/data/models/register/register_request_model.dart';
 import 'package:jokes_app/app/modules/auth/views/onboard.dart';
 
 class RegisterController extends GetxController with AuthMixin {
+  RxBool obscureText = true.obs;
+  RxBool obscureConfirmText = true.obs;
+
   Future<void> registerUser(String email, String password) async {
     final response = await authProvider
         .fetchRegister(RegisterRequestModel(email: email, password: password));

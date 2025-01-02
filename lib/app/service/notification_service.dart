@@ -1,8 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:http/http.dart' as http;
 import 'package:jokes_app/app/data/models/joke_model.dart';
 import 'package:jokes_app/app/data/provider/joke_provider.dart';
-import 'dart:convert';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -16,11 +14,9 @@ class NotificationService {
   }
 
   Future<void> initialize() async {
-    // Initialization Settings for Android
     const AndroidInitializationSettings initializationSettingsAndroid =
     AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    // Initialization Settings for iOS
     const DarwinInitializationSettings initializationSettingsIOS =
     DarwinInitializationSettings(
       requestSoundPermission: true,
@@ -35,33 +31,12 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onDidReceiveNotificationResponse: (NotificationResponse response) async {
-        // Handle notification tapped logic here
-        // open the app or do something else
-
-        // Example: Open the app
-      },
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {},
     );
   }
 
-  Future<String> getNotificationMessage() async {
-    const String apiUrl = 'https://api.example.com/quotes';
-    try {
-      final response = await http.get(Uri.parse(apiUrl));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return data['quote'] ?? 'Default notification message';
-      }
-    } catch (e) {
-      print('Error fetching notification message: $e');
-    }
-    return 'Default notification message';
-  }
-
   Future<void> scheduleNotification(DateTime scheduledTime) async {
-    // final message = await getNotificationMessage();
     final Joke joke = await JokeProvider().fetchOneRandomJoke();
-    print(joke.setup);
     const message = 'Hello, this is a notification message';
 
     const AndroidNotificationDetails androidDetails = AndroidNotificationDetails(
