@@ -6,6 +6,7 @@ import 'package:jokes_app/app/modules/auth/controllers/auth_controller.dart';
 import 'package:jokes_app/app/modules/auth/views/components/header.dart';
 import 'package:jokes_app/app/modules/joke/views/favorite_joke_view.dart';
 import 'package:jokes_app/app/modules/joke/views/joke_view.dart';
+import 'package:jokes_app/app/routes/app_pages.dart';
 
 class HomeView extends StatelessWidget {
   HomeView({Key? key}) : super(key: key);
@@ -20,16 +21,34 @@ class HomeView extends StatelessWidget {
           onPressed: () {
             _authC.logOut();
           },
-          icon: const Icon(Icons.logout_rounded, color: Colors.black,),
+          icon: const Icon(
+            Icons.logout_rounded,
+            color: Colors.black,
+          ),
         ),
         centerTitle: true,
-        title: const Header(text: 'Joke App', color: Colors.black,),
+        title: const Header(
+          text: 'Home',
+          color: Colors.black,
+        ),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(Icons.favorite, color: Colors.black,),
+            icon: const Icon(
+              Icons.favorite,
+              color: Colors.black,
+            ),
             onPressed: () {
               Get.to(() => FavoritesPage());
             },
+          ),
+          IconButton(
+            onPressed: () {
+              Get.toNamed(Routes.SETTING);
+            },
+            icon: const Icon(
+              Icons.notifications,
+              color: Colors.black,
+            ),
           ),
         ],
       ),
@@ -43,7 +62,10 @@ class HomeView extends StatelessWidget {
             return GestureDetector(
               onTap: () {
                 Get.to(
-                    () => JokeView(jokeType: Constant.jokeTypes[index]));
+                  () => JokeView(
+                    jokeType: Constant.jokeTypes[index],
+                  ),
+                );
               },
               child: Card(
                 color: CustomColor.primary,
@@ -61,4 +83,3 @@ class HomeView extends StatelessWidget {
     );
   }
 }
-

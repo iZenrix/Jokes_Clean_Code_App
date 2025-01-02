@@ -6,6 +6,7 @@ abstract class Routes {
   static const JOKE_SCREEN = _Paths.JOKE_SCREEN;
   static const AUTH = _Paths.AUTH;
   static const JOKE = _Paths.JOKE;
+  static const SETTING = _Paths.SETTING;
 }
 
 abstract class _Paths {
@@ -14,4 +15,5 @@ abstract class _Paths {
   static const JOKE_SCREEN = '/joke-screen';
   static const AUTH = '/auth';
   static const JOKE = '/joke';
+  static const SETTING = '/setting';
 }

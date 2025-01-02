@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:jokes_app/app/modules/setting/bindings/setting_binding.dart';
+import 'package:jokes_app/app/modules/setting/views/setting_view.dart';
 import '../modules/auth/bindings/auth_binding.dart';
 import '../modules/auth/views/auth_view.dart';
 import '../modules/home/views/home_view.dart';
@@ -24,8 +26,13 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.JOKE,
-      page: () => JokeView(jokeType: '',),
+      page: () => JokeView(),
       binding: JokeBinding(),
+    ),
+    GetPage(
+        name: _Paths.SETTING,
+        page: () => const SettingView(),
+        binding: SettingBinding(),
     ),
   ];
 }

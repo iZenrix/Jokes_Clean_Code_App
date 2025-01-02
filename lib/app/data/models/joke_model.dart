@@ -5,7 +5,13 @@ class Joke {
   final int id;
   bool isFavorite;
 
-  Joke({required this.type, required this.setup, required this.punchline, required this.id, this.isFavorite = false});
+  Joke({
+    required this.type,
+    required this.setup,
+    required this.punchline,
+    required this.id,
+    this.isFavorite = false,
+  });
 
   factory Joke.fromJson(Map<String, dynamic> json) {
     return Joke(
@@ -14,5 +20,14 @@ class Joke {
       punchline: json['punchline'],
       id: json['id'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'setup': setup,
+      'punchline': punchline,
+      'id': id,
+    };
   }
 }

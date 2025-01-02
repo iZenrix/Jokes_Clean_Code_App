@@ -4,6 +4,15 @@ import 'package:jokes_app/app/core/value/constant.dart';
 import 'package:jokes_app/app/data/models/joke_model.dart';
 
 class JokeProvider {
+  Future<Joke> fetchOneRandomJoke() async {
+    final response = await http.get(Uri.parse('${Constant.jokeUrl}/random'));
+    if (response.statusCode == 200) {
+      return Joke.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load jokes');
+    }
+  }
+
   Future<Joke> fetchOneJoke(String type) async {
     var jokeList = await _fetchJokes('${Constant.jokeUrl}/$type/random');
     return Joke.fromJson(jokeList[0]);

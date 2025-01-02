@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:jokes_app/app/core/value/color.dart';
 import 'package:jokes_app/app/modules/auth/views/components/header.dart';
-import 'package:jokes_app/app/modules/joke/controllers/joke_controller.dart';
+import 'package:jokes_app/app/modules/joke/controllers/favorite_joke_controller.dart';
 
-class FavoritesPage extends GetView<JokeController> {
+class FavoritesPage extends GetView<FavoriteJokeController> {
   FavoritesPage({super.key});
 
   @override
-  final JokeController controller = Get.put(JokeController());
+  final FavoriteJokeController controller = Get.put(FavoriteJokeController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,6 +20,19 @@ class FavoritesPage extends GetView<JokeController> {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Obx(
           () {
+            if (controller.favoriteJokes.isEmpty) {
+              return Center(
+                child: Text(
+                  'No favorite jokes yet',
+                  style: TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
+                    color: CustomColor.primary,
+                  ),
+                ),
+              );
+            }
+
             var groupedJokes = groupBy(controller.favoriteJokes, (joke) => joke.type);
             return ListView.builder(
               itemCount: groupedJokes.keys.length,
