@@ -77,9 +77,13 @@ class SettingController extends GetxController with CacheManager {
   }
 
   Future<void> cancelAllNotifications() async {
+    isLoading.value = true;
+
     await notificationService.cancelAllNotifications();
     await removeNotificationTime();
     selectedTime.value = null;
+
+    isLoading.value = false;
     ScaffoldMessenger.of(Get.context!).showSnackBar(
       const SnackBar(
         content: Text('All notifications canceled'),

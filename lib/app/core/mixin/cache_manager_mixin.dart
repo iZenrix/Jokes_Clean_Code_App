@@ -21,13 +21,17 @@ mixin CacheManager {
 
   Future<bool> saveNotificationTime(DateTime time) async {
     log('saveNotificationTime called with $time');
-    await _box.write(CacheManagerKey.NOTIFICATION_TIME.toString(), time);
+    await _box.write(CacheManagerKey.NOTIFICATION_TIME.toString(), time.toIso8601String());
     return true;
   }
 
   DateTime? getNotificationTime() {
     log('getNotificationTime called with ${_box.read(CacheManagerKey.NOTIFICATION_TIME.toString())}');
-    return _box.read(CacheManagerKey.NOTIFICATION_TIME.toString());
+    final notificationTime = _box.read(CacheManagerKey.NOTIFICATION_TIME.toString());
+    if (notificationTime != null) {
+      return DateTime.parse(notificationTime);
+    }
+    return null;
   }
 
   Future<void> removeNotificationTime() async {
@@ -35,13 +39,14 @@ mixin CacheManager {
   }
 
   Future<bool> saveFavoriteJokes(List<Joke> jokes) async {
-    await _box.write(CacheManagerKey.FAVORITE_JOKES.toString(), jokes);
+    await _box.write(CacheManagerKey.FAVORITE_JOKES.toString(), jokes.map((e) => e.toJson()).toList());
     return true;
   }
 
   List<Joke> getFavoriteJokes() {
     final jokes = _box.read(CacheManagerKey.FAVORITE_JOKES.toString());
-    return jokes != null ? List<Joke>.from(jokes) : [];
+    log('getFavoriteJokes called with $jokes');
+    return jokes != null ? jokes.map<Joke>((joke) => Joke.fromJson(joke)).toList() : [];
   }
 
   Future<void> removeFavoriteJokes() async {
